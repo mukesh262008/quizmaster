@@ -1,244 +1,337 @@
-**QuizMaster – Student Quiz Management System**
+# Student Quiz Management System
 
-A desktop quiz application built with Java, JavaFX, JDBC and MySQL. Students can register, log in, pick a topic, take a multiple-choice quiz, see their score instantly and review all their earlier attempts. The UI is styled with JavaFX CSS to look like a modern website (cards, rounded buttons, sidebar, clean spacing).
+A modern desktop-based quiz application built with **Java, JavaFX, JDBC, and MySQL**.  
+The application allows students to register, attend topic-based quizzes, track their performance, view quiz history, and manage their profiles.
 
+---
 
-Features
-Register / Login with input validation
-Dashboard showing name, current streak, best score and quizzes taken
-Topic selection – Java, OOP, JDBC, SQL, General Knowledge (GK), Movies (scrollable page)
-Quiz – questions loaded from MySQL (up to 10 per topic), four options each, one question at a time with a progress bar
-Result – score, percentage and a performance message; saved to the database
-My Results – all previous attempts with total quizzes, best score and average percentage
-Profile – update name, email and password, or delete the account
-Back buttons on Register, Topic Selection, Quiz, Result, My Results and Profile
-All queries use PreparedStatement
-Screenshots
+## ✨ Features
 
-Add your screenshots to a screenshots/ folder and the links below will work.
+- 🔐 Student Registration & Login
+- 📊 Interactive Dashboard
+- 🧠 Topic-based Quizzes
+- ☕ Java
+- 🧩 OOP
+- 🔗 JDBC
+- 🗄️ SQL
+- 🌍 General Knowledge
+- 🎬 Movies
+- 📝 Multiple-choice Questions
+- 📈 Automatic Score & Percentage Calculation
+- 🏆 Best Score Tracking
+- 🔥 Quiz Streak Tracking
+- 📚 Quiz History
+- 👤 Student Profile Management
+- ✏️ Update Profile
+- 🗑️ Delete Account
+- 🚪 Logout
+- ↩️ Page-to-page Navigation
+- 🎨 Modern JavaFX UI
+- 🖱️ Scrollable Content
 
-Login	Dashboard
-Show Image	Show Image
-Topic Selection	Quiz
-Show Image	Show Image
-Result	My Results	Profile
-Show Image	Show Image	Show Image
-Tech Stack
-Item	Version used in the project
-Language	Java (JavaSE-25 in Eclipse)
-UI	JavaFX 27 + JavaFX CSS
-Database	MySQL (quizmaster, port 3306)
-Driver	MySQL Connector/J 26.7.0
-IDE	Eclipse
-Project Structure
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Usage |
+|---|---|
+| Java | Application Development |
+| JavaFX | Graphical User Interface |
+| JDBC | Database Connectivity |
+| MySQL | Database |
+| CSS | UI Styling |
+| Eclipse | Development Environment |
+
+---
+
+## 🏗️ Project Architecture
+
+```text
+Student Quiz Management System
+│
+├── Presentation Layer
+│   └── JavaFX UI
+│
+├── Application Layer
+│   ├── Login
+│   ├── Registration
+│   ├── Dashboard
+│   ├── Topic Selection
+│   ├── Quiz
+│   ├── Result
+│   ├── Results History
+│   └── Profile
+│
+├── Database Layer
+│   └── JDBC
+│
+└── Database
+    └── MySQL
+📂 Project Structure
 student_quiz/
-└── src/
-    ├── module-info.java
-    └── student_quiz/
-        ├── Main.java            # entry point, opens Login
-        ├── DBConnection.java    # JDBC connection
-        ├── Login.java
-        ├── Register.java
-        ├── Dashboard.java
-        ├── TopicSelection.java
-        ├── Quiz.java
-        ├── Result.java
-        ├── ResultsHistory.java
-        ├── Profile.java
-        └── style.css            # all UI styling
+│
+├── src/
+│   └── student_quiz/
+│       ├── Main.java
+│       ├── DBConnection.java
+│       ├── Login.java
+│       ├── Register.java
+│       ├── Dashboard.java
+│       ├── TopicSelection.java
+│       ├── Quiz.java
+│       ├── Result.java
+│       ├── ResultsHistory.java
+│       ├── Profile.java
+│       ├── module-info.java
+│       └── style.css
+│
+└── README.md
+🔄 Application Flow
+                 ┌──────────────┐
+                 │ Registration │
+                 └──────┬───────┘
+                        │
+                        ▼
+                 ┌──────────────┐
+                 │    Login     │
+                 └──────┬───────┘
+                        │
+                        ▼
+                 ┌──────────────┐
+                 │  Dashboard   │
+                 └──────┬───────┘
+                        │
+             ┌──────────┼──────────┐
+             ▼          ▼          ▼
+        Take Quiz    My Results   Profile
+             │
+             ▼
+      ┌───────────────┐
+      │ Topic Selection│
+      └───────┬───────┘
+              │
+              ▼
+        ┌───────────┐
+        │   Quiz    │
+        └─────┬─────┘
+              │
+              ▼
+        ┌───────────┐
+        │  Result   │
+        └───────────┘
+🎯 Quiz Topics
 
-Each screen is a class with a show(...) method that builds the UI in code and sets a new scene on the same Stage (no FXML).
+The application currently provides six quiz categories:
 
-Database Setup
+Topic	Description
+☕ Java	Core Java concepts
+🧩 OOP	Object-Oriented Programming
+🔗 JDBC	Java Database Connectivity
+🗄️ SQL	SQL and database concepts
+🌍 GK	General Knowledge
+🎬 Movies	Movies and entertainment
 
-Create the database and the three tables. The script below is a suggested schema that matches the columns the code uses – adjust it if your own database differs.
+Each topic contains multiple-choice questions stored in the MySQL database.
 
-sql
+🗄️ Database Design
+
+Database name:
+
+quizmaster
+Tables
+students
+
+Stores student account and performance information.
+
+id
+name
+email
+username
+password
+streak
+best_score
+quizzes_attempted
+last_quiz_date
+created_at
+questions
+
+Stores quiz questions and answers.
+
+id
+topic
+question
+option_a
+option_b
+option_c
+option_d
+correct_answer
+quiz_results
+
+Stores completed quiz results.
+
+id
+student_id
+topic
+score
+total_questions
+percentage
+quiz_date
+Database Relationship
+students
+   │
+   │ 1
+   │
+   │
+   │ N
+   ▼
+quiz_results
+
+A student can have multiple quiz results.
+
+⚙️ Requirements
+
+Before running the project, install:
+
+Java JDK
+JavaFX SDK
+MySQL Server
+MySQL Connector/J
+Eclipse IDE
+🚀 Getting Started
+1. Clone the Repository
+git clone https://github.com/your-username/student-quiz-management-system.git
+2. Open in Eclipse
+
+Import the project into Eclipse and configure the JavaFX libraries.
+
+3. Create the Database
+
+Open MySQL and run:
+
 CREATE DATABASE quizmaster;
+
+Then:
+
 USE quizmaster;
 
-CREATE TABLE students (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(100) NOT NULL,
-    streak INT NOT NULL DEFAULT 0,
-    best_score INT NOT NULL DEFAULT 0,
-    quizzes_attempted INT NOT NULL DEFAULT 0,
-    last_quiz_date DATE NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+Create the required tables and insert the quiz questions.
 
-CREATE TABLE questions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    topic VARCHAR(30) NOT NULL,          -- Java, OOP, JDBC, SQL, GK, Movies
-    question TEXT NOT NULL,
-    option_a VARCHAR(255) NOT NULL,
-    option_b VARCHAR(255) NOT NULL,
-    option_c VARCHAR(255) NOT NULL,
-    option_d VARCHAR(255) NOT NULL,
-    correct_answer CHAR(1) NOT NULL      -- 'A', 'B', 'C' or 'D'
-);
+4. Configure Database Connection
 
-CREATE TABLE quiz_results (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    student_id INT NOT NULL,
-    topic VARCHAR(30) NOT NULL,
-    score INT NOT NULL,
-    total_questions INT NOT NULL,
-    percentage DOUBLE NOT NULL,
-    quiz_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
-);
+Open:
 
-Example question:
+DBConnection.java
 
-sql
-INSERT INTO questions (topic, question, option_a, option_b, option_c, option_d, correct_answer)
-VALUES ('Java', 'Which keyword is used to create a class in Java?', 'class', 'new', 'static', 'void', 'A');
+Update your MySQL credentials:
 
-The topic value must be exactly Java, OOP, JDBC, SQL, GK or Movies. Add 10 questions per topic.
+private static final String USER = "root";
+private static final String PASSWORD = "your_password";
 
-How to Run
-Install a JDK, JavaFX SDK, MySQL and MySQL Connector/J.
-Create the database and tables (above) and insert some questions.
-Open src/student_quiz/DBConnection.java and set your MySQL user name and password:
-java
-   private static final String URL = "jdbc:mysql://localhost:3306/quizmaster";
-   private static final String USER = "root";
-   private static final String PASSWORD = "your_password";
-Import the project into Eclipse and add the JavaFX jars and the Connector/J jar to the build path.
-Run Main.java. If JavaFX is not found, add these VM arguments in the run configuration (use your own SDK path):
-   --module-path "path/to/javafx-sdk/lib" --add-modules javafx.controls,javafx.fxml
-Known Limitations
-Passwords are stored as plain text (should be hashed, e.g. with BCrypt).
-Database credentials are written in DBConnection.java (should be moved to a config file).
-Questions are not shuffled and a quiz cannot go back to a previous question.
-The streak increases by one for every quiz; it is not yet based on consecutive days.
-Questions can only be added directly in the database.
-Future Improvements
+The database URL is:
 
-Password hashing, shuffled questions, per-quiz timer, answer review after submission, day-based streaks, an admin screen to manage questions, leaderboard and progress charts.
+jdbc:mysql://localhost:3306/quizmaster
+5. Configure Dependencies
 
-A desktop quiz application built with Java, JavaFX, JDBC and MySQL. Students can register, log in, pick a topic, take a multiple-choice quiz, see their score instantly and review all their earlier attempts. The UI is styled with JavaFX CSS to look like a modern website (cards, rounded buttons, sidebar, clean spacing).
+Add:
 
-College micro project – 23AD35C: OOPS with JAVA (CO10: desktop application with event handling).
+JavaFX libraries
+MySQL Connector/J
 
-Features
-Register / Login with input validation
-Dashboard showing name, current streak, best score and quizzes taken
-Topic selection – Java, OOP, JDBC, SQL, General Knowledge (GK), Movies (scrollable page)
-Quiz – questions loaded from MySQL (up to 10 per topic), four options each, one question at a time with a progress bar
-Result – score, percentage and a performance message; saved to the database
-My Results – all previous attempts with total quizzes, best score and average percentage
-Profile – update name, email and password, or delete the account
-Back buttons on Register, Topic Selection, Quiz, Result, My Results and Profile
-All queries use PreparedStatement
-Screenshots
+to the Eclipse project.
 
-Add your screenshots to a screenshots/ folder and the links below will work.
+6. Run the Application
 
-Login	Dashboard
-Show Image	Show Image
-Topic Selection	Quiz
-Show Image	Show Image
-Result	My Results	Profile
-Show Image	Show Image	Show Image
-Tech Stack
-Item	Version used in the project
-Language	Java (JavaSE-25 in Eclipse)
-UI	JavaFX 27 + JavaFX CSS
-Database	MySQL (quizmaster, port 3306)
-Driver	MySQL Connector/J 26.7.0
-IDE	Eclipse
-Project Structure
-student_quiz/
-└── src/
-    ├── module-info.java
-    └── student_quiz/
-        ├── Main.java            # entry point, opens Login
-        ├── DBConnection.java    # JDBC connection
-        ├── Login.java
-        ├── Register.java
-        ├── Dashboard.java
-        ├── TopicSelection.java
-        ├── Quiz.java
-        ├── Result.java
-        ├── ResultsHistory.java
-        ├── Profile.java
-        └── style.css            # all UI styling
+Run:
 
-Each screen is a class with a show(...) method that builds the UI in code and sets a new scene on the same Stage (no FXML).
+Main.java
+🖥️ Application Screens
+Login
 
-Database Setup
+Students can securely access the application using their username and password.
 
-Create the database and the three tables. The script below is a suggested schema that matches the columns the code uses – adjust it if your own database differs.
+Registration
 
-sql
-CREATE DATABASE quizmaster;
-USE quizmaster;
+New students can create an account.
 
-CREATE TABLE students (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(100) NOT NULL,
-    streak INT NOT NULL DEFAULT 0,
-    best_score INT NOT NULL DEFAULT 0,
-    quizzes_attempted INT NOT NULL DEFAULT 0,
-    last_quiz_date DATE NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+Dashboard
 
-CREATE TABLE questions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    topic VARCHAR(30) NOT NULL,          -- Java, OOP, JDBC, SQL, GK, Movies
-    question TEXT NOT NULL,
-    option_a VARCHAR(255) NOT NULL,
-    option_b VARCHAR(255) NOT NULL,
-    option_c VARCHAR(255) NOT NULL,
-    option_d VARCHAR(255) NOT NULL,
-    correct_answer CHAR(1) NOT NULL      -- 'A', 'B', 'C' or 'D'
-);
+Displays:
 
-CREATE TABLE quiz_results (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    student_id INT NOT NULL,
-    topic VARCHAR(30) NOT NULL,
-    score INT NOT NULL,
-    total_questions INT NOT NULL,
-    percentage DOUBLE NOT NULL,
-    quiz_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
-);
+Current Streak
+Best Score
+Quizzes Taken
+Quiz navigation
+Profile navigation
+Results navigation
+Topic Selection
 
-Example question:
+Students can choose their preferred quiz topic.
 
-sql
-INSERT INTO questions (topic, question, option_a, option_b, option_c, option_d, correct_answer)
-VALUES ('Java', 'Which keyword is used to create a class in Java?', 'class', 'new', 'static', 'void', 'A');
+Quiz
 
-The topic value must be exactly Java, OOP, JDBC, SQL, GK or Movies. Add 10 questions per topic.
+Students answer multiple-choice questions and track their progress.
 
-How to Run
-Install a JDK, JavaFX SDK, MySQL and MySQL Connector/J.
-Create the database and tables (above) and insert some questions.
-Open src/student_quiz/DBConnection.java and set your MySQL user name and password:
-java
-   private static final String URL = "jdbc:mysql://localhost:3306/quizmaster";
-   private static final String USER = "root";
-   private static final String PASSWORD = "your_password";
-Import the project into Eclipse and add the JavaFX jars and the Connector/J jar to the build path.
-Run Main.java. If JavaFX is not found, add these VM arguments in the run configuration (use your own SDK path):
-   --module-path "path/to/javafx-sdk/lib" --add-modules javafx.controls,javafx.fxml
-Known Limitations
-Passwords are stored as plain text (should be hashed, e.g. with BCrypt).
-Database credentials are written in DBConnection.java (should be moved to a config file).
-Questions are not shuffled and a quiz cannot go back to a previous question.
-The streak increases by one for every quiz; it is not yet based on consecutive days.
-Questions can only be added directly in the database.
-Future Improvements
+Result
 
-Password hashing, shuffled questions, per-quiz timer, answer review after submission, day-based streaks, an admin screen to manage questions, leaderboard and progress charts.
+Displays the final score and percentage after submitting the quiz.
+
+Results History
+
+Displays previous quiz attempts and performance statistics.
+
+Profile
+
+Allows students to update their account information or delete their account.
+
+📊 Quiz Result Query
+
+To view all quiz results:
+
+SELECT * FROM quiz_results;
+
+To view results with student information:
+
+SELECT
+    s.name,
+    s.username,
+    r.topic,
+    r.score,
+    r.total_questions,
+    r.percentage,
+    r.quiz_date
+FROM students s
+JOIN quiz_results r
+ON s.id = r.student_id
+ORDER BY r.quiz_date DESC;
+🔍 Check Question Count
+
+To verify the number of questions available for each topic:
+
+SELECT
+    topic,
+    COUNT(*) AS question_count
+FROM questions
+GROUP BY topic;
+🔒 Data Management
+
+The application uses JDBC to communicate with MySQL.
+
+User information, quiz questions, and quiz results are stored persistently in the database.
+
+When a student account is deleted, related quiz results can also be removed through the database relationship using cascading deletion.
+
+🎨 UI Design
+
+The application uses a modern JavaFX-based interface rather than the default JavaFX controls.
+
+The UI includes:
+
+Card-based layouts
+Rounded buttons
+Sidebar navigation
+Clean typography
+Light backgrounds
+Hover effects
+Responsive scrolling
+Consistent navigation
+JavaFX CSS styling
